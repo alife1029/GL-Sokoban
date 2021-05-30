@@ -1,5 +1,6 @@
 #include "Engine/Application/Application.hpp"
 #include "Engine/Application/Window.hpp"
+#include "Engine/Exception.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -22,13 +23,17 @@ namespace engine
 
         while(mWnd->IsOpen())
         {
-            glClearColor(0.25f, 0.25f, 0.25f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
 
             Update();
 
             glfwSwapBuffers(mWnd->GlfwWindow());
             glfwPollEvents();
+
+            // Check OpenGL errors
+            int glerr = glGetError();
+            if (glerr)
+                THROW_OPENGL_EXCEPTION(glerr);
         }
 
         Dispose();

@@ -1,17 +1,16 @@
 #include "Engine/Application/Window.hpp"
 #include "Engine/Application/AppConfig.hpp"
+#include "Engine/Exception.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
-#include <iostream>
 
 namespace engine
 {
     Window::Window(const AppConfig& cfg)
     {
         if (!glfwInit())
-            std::cout << "Failed to Initialize GLFW!" << std::endl;
+            THROW_ENGINE_EXCEPTION("Failed to Initialize GLFW!");
 
         // Minimum OpenGL 3.3 Required
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -20,7 +19,7 @@ namespace engine
         if (!mWnd)
         {
             glfwTerminate();
-            std::cout << "Failed to create window! Check your OpenGL version. Minimum OpenGL 3.3 required!" << std::endl;
+            THROW_ENGINE_EXCEPTION("Failed to create window! Check your OpenGL version. Minimum OpenGL 3.3 required!");
         }
 
         glfwMakeContextCurrent(mWnd);
@@ -30,7 +29,7 @@ namespace engine
         {
             glfwDestroyWindow(mWnd);
             glfwTerminate();
-            std::cout << "Failed to load GL pointers!" << std::endl;
+            THROW_ENGINE_EXCEPTION("Failed to load OpenGL pointers!");
         }
 
         glEnable(GL_BLEND);

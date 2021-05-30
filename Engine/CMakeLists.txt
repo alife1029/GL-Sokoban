@@ -1,4 +1,5 @@
 file(GLOB PROJECT_SOURCES 
+    ${PROJECT_DIR}/src/*.cpp
     ${PROJECT_DIR}/src/Application/*.cpp
     )
 
