@@ -21,6 +21,8 @@ namespace engine
     void Application::Run()
     {
         Renderer2D::Init();
+        StaticRenderer2D::Initialize();
+
         Start();
 
         while(mWnd->IsOpen())
@@ -28,6 +30,9 @@ namespace engine
             glClear(GL_COLOR_BUFFER_BIT);
 
             Update();
+            int glerr = glGetError();
+            if (glerr)
+                THROW_OPENGL_EXCEPTION(glerr);
 
             glfwSwapBuffers(mWnd->GlfwWindow());
             glfwPollEvents();
@@ -35,13 +40,15 @@ namespace engine
             Renderer2D::ResetStats();
 
             // Check OpenGL errors
-            int glerr = glGetError();
+            /*int */glerr = glGetError();
             if (glerr)
                 THROW_OPENGL_EXCEPTION(glerr);
         }
 
         Dispose();
+
         Renderer2D::Shutdown();
+        StaticRenderer2D::Shutdown();
     }
 
     void Application::Start() { }

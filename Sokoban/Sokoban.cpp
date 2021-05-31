@@ -22,12 +22,7 @@ public:
 
     void Start() override
     {
-        
-    }
-
-    void Update() override
-    {
-        Renderer2D::Begin(glm::mat4(1.0f));
+        StaticRenderer2D::BeginScene();
 
         int offset = 0;
         float size = 0.01f;
@@ -39,18 +34,32 @@ public:
                     : glm::vec4{ 1.0f, 1.0f, 0.0f, 1.0f };
                 ++offset;
 
-                Renderer2D::DrawQuad({ i, j }, { size, size }, color);
+                StaticRenderer2D::DrawQuad({ i, j }, { size, size }, color);
             }
         }
 
+        StaticRenderer2D::EndScene();
+    }
+
+    void Update() override
+    {
+        StaticRenderer2D::RenderScene(glm::mat4(1.0f));
+
+        Renderer2D::Begin(glm::mat4(1.0f));
+        Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, rot++, { 0.0f, 0.0f, 1.0f, 1.0f });
         Renderer2D::End();
         Renderer2D::Flush();
+
+        RenderStat stats = RenderStats();
+        std::cout << "Batches: " << stats.Batches() << " (Static: " << stats.StaticBatches << " Dynamic: " << stats.DynamicBatches << ")" << std::endl;
     }
 
     void Dispose() override
     {
         
     }
+private:
+    float rot = 0;
 };
 
 int main(int argc, char** argv)
