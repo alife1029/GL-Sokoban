@@ -2,6 +2,7 @@
     "C_Cpp.default.includePath": [
         "${workspaceFolder}/Engine/include",
         "${workspaceFolder}/Dependencies/glad/include",
-        "${workspaceFolder}/Dependencies/GLFW/include"
+        "${workspaceFolder}/Dependencies/GLFW/include",
+        "${workspaceFolder}/Dependencies/stb"
     ]
 }
