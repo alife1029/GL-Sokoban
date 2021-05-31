@@ -12,17 +12,19 @@ namespace engine
     {
     public:
         static Texture2D LoadTexture(const std::string& img);
+        static Texture2D WhiteTexture();
     private:
         static std::map<std::string, Texture2D> sTextureMap;
+        static Texture2D sWhiteTexture;
 
     public:
-        unsigned int Id();
-        int Width();
-        int Height();
-        int NrChannels();
+        unsigned int Id() const;
+        int Width() const;
+        int Height() const;
+        int NrChannels() const;
     private:
-        unsigned int id;
-        int width, height, nrChannels;
+        unsigned int id = 0;
+        int width = 0, height = 0, nrChannels = 0;
     };
 }
 

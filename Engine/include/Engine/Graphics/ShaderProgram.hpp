@@ -28,6 +28,7 @@ namespace engine
         void SetUniformVec3(const std::string& var, const glm::vec3& val);
         void SetUniformVec4(const std::string& var, const glm::vec4& val);
         void SetUniformMat4(const std::string& var, const glm::mat4& val);
+        void SetUniformIntArr(const std::string& var, int len, int* val);
 
         unsigned int Id();
     private:

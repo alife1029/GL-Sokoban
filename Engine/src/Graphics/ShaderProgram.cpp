@@ -16,6 +16,12 @@ namespace engine
     {
         Initiaize(vs, fs);
     }
+
+    ShaderProgram::~ShaderProgram()
+    {
+        if (mId)
+            glDeleteProgram(mId);
+    }
     
     void ShaderProgram::Initiaize()
     {
@@ -92,6 +98,10 @@ namespace engine
     void ShaderProgram::SetUniformMat4(const std::string& var, const glm::mat4& val)
     {
         glUniformMatrix4fv(mUniforms[var], 1, GL_FALSE, glm::value_ptr(val));
+    }
+    void ShaderProgram::SetUniformIntArr(const std::string& var, int len, int* val)
+    {
+        glUniform1iv(mUniforms[var], len, val);
     }
 
     unsigned int ShaderProgram::Id()

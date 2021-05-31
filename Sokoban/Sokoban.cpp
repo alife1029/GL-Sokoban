@@ -22,17 +22,34 @@ public:
 
     void Start() override
     {
-        std::cout << "Start called!" << std::endl;
+        
     }
 
     void Update() override
     {
-        std::cout << "Update called!" << std::endl;
+        Renderer2D::Begin(glm::mat4(1.0f));
+
+        int offset = 0;
+        float size = 0.01f;
+        for (float i = -1.0f; i <= 1.0f; i += size)
+        {
+            for (float j = -1.0f; j <= 1.0f; j += size)
+            {
+                glm::vec4 color = offset % 2 ? glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f } 
+                    : glm::vec4{ 1.0f, 1.0f, 0.0f, 1.0f };
+                ++offset;
+
+                Renderer2D::DrawQuad({ i, j }, { size, size }, color);
+            }
+        }
+
+        Renderer2D::End();
+        Renderer2D::Flush();
     }
 
     void Dispose() override
     {
-        std::cout << "Dispose called!" << std::endl;
+        
     }
 };
 

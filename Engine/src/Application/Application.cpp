@@ -1,6 +1,7 @@
 #include "Engine/Application/Application.hpp"
 #include "Engine/Application/Window.hpp"
 #include "Engine/Exception.hpp"
+#include "Engine/Graphics/Renderer2D.hpp"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -19,6 +20,7 @@ namespace engine
 
     void Application::Run()
     {
+        Renderer2D::Init();
         Start();
 
         while(mWnd->IsOpen())
@@ -30,6 +32,8 @@ namespace engine
             glfwSwapBuffers(mWnd->GlfwWindow());
             glfwPollEvents();
 
+            Renderer2D::ResetStats();
+
             // Check OpenGL errors
             int glerr = glGetError();
             if (glerr)
@@ -37,6 +41,7 @@ namespace engine
         }
 
         Dispose();
+        Renderer2D::Shutdown();
     }
 
     void Application::Start() { }
