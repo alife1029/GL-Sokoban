@@ -3,6 +3,7 @@
         "${workspaceFolder}/Engine/include",
         "${workspaceFolder}/Dependencies/glad/include",
         "${workspaceFolder}/Dependencies/GLFW/include",
-        "${workspaceFolder}/Dependencies/stb"
+        "${workspaceFolder}/Dependencies/stb",
+        "${workspaceFolder}/Dependencies/glm"
     ]
 }

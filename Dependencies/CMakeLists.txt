@@ -10,6 +10,9 @@ include_directories(${DEPENDENCIES_DIR}/glad/include)
 file(GLOB STB_SOURCES ${DEPENDENCIES_DIR}/stb/stb/*.c)
 include_directories(${DEPENDENCIES_DIR}/stb)
 
+# GLM
+include_directories(${DEPENDENCIES_DIR}/glm)
+
 set(ALL_LIB_FILES 
     ${GLFW_LIB_FILES}
     )

@@ -1,5 +1,6 @@
 #include "Engine/Exception.hpp"
 #include <sstream>
+#include <glad/glad.h>
 //#include <AL/al.h>
 
 namespace engine {
@@ -70,13 +71,15 @@ namespace engine {
 
 
     // Shader compile exception
-    ShaderCompileException::ShaderCompileException(int line, const char* file, std::string shaderFile, std::string gpuLog, std::string shaderType) noexcept
+    ShaderCompileException::ShaderCompileException(int line, const char* file, std::string shaderFile, std::string gpuLog, unsigned int shaderType) noexcept
         :
         Exception(line, file),
         shaderType(shaderType),
         shaderFile(shaderFile),
         gpuLog(gpuLog)
-    { }
+    {
+        TranslateMessage();
+    }
 
     const char* ShaderCompileException::GetType() const noexcept
     {
@@ -87,10 +90,21 @@ namespace engine {
     {
         std::stringstream ss;
         ss  << Exception::GetOriginString() << std::endl
-            << "[SHADER TYPE] " << shaderType << std::endl
+            << "[SHADER TYPE] " << strShaderType << std::endl
             << "[SHADER FILE] " << shaderFile << std::endl
             << "[GPU LOG] " << gpuLog << std::endl;
         return ss.str();
+    }
+
+    void ShaderCompileException::TranslateMessage() noexcept
+    {
+        switch (shaderType)
+        {
+        case GL_VERTEX_SHADER: strShaderType = "Vertex Shader"; break;
+        case GL_FRAGMENT_SHADER: strShaderType = "Fragment Shader"; break;
+        case GL_GEOMETRY_SHADER: strShaderType = "Geometry Shader"; break;
+        default: strShaderType = "Unknown"; break;
+        }
     }
 
 

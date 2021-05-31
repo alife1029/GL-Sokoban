@@ -6,5 +6,6 @@
 #include <Engine/Graphics/Texture2D.hpp>
 
 #include <Engine/Exception.hpp>
+#include <Engine/File.hpp>
 
 #endif

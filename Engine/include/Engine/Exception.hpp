@@ -41,11 +41,14 @@ namespace engine
     class ENGINE_API ShaderCompileException : public Exception
     {
     public:
-        ShaderCompileException(int line, const char* file, std::string shaderFile, std::string gpuLog, std::string shaderType) noexcept;
+        ShaderCompileException(int line, const char* file, std::string shaderFile, std::string gpuLog, unsigned int shaderType) noexcept;
         virtual const char* GetType() const noexcept;
         virtual std::string GetOriginString() const noexcept override;
     private:
-        std::string shaderType;
+        void TranslateMessage() noexcept;
+    private:
+        unsigned int shaderType;
+        std::string strShaderType;
         std::string shaderFile;
         std::string gpuLog;
     };
