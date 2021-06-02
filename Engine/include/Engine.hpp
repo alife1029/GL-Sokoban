@@ -2,6 +2,7 @@
 #define ENGINE_HPP
 
 #include <Engine/Application/Application.hpp>
+#include <Engine/Application/EventSystem.hpp>
 
 #include <Engine/Graphics/Texture2D.hpp>
 #include <Engine/Graphics/Renderer2D.hpp>

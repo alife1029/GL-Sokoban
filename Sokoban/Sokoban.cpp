@@ -15,13 +15,15 @@
 
 using namespace engine;
 
-class Sokoban : public Application
+class Sokoban : public Application, EventSystem
 {
 public:
     Sokoban(const AppConfig& cfg) : Application(cfg) { }
 
     void Start() override
     {
+        SetEventListener(this);
+
         StaticRenderer2D::BeginScene();
 
         int offset = 0;
@@ -52,6 +54,21 @@ public:
 
         RenderStat stats = RenderStats();
         std::cout << "Batches: " << stats.Batches() << " (Static: " << stats.StaticBatches << " Dynamic: " << stats.DynamicBatches << ")" << std::endl;
+    }
+
+    void Resize(int width, int height) override
+    {
+        std::cout << "Window Resized! (" << width << ", " << height << ")" << std::endl;
+    }
+
+    void Keydown(int keycode) override
+    {
+        std::cout << "Keydown! (" << keycode << ")" << std::endl;
+    }
+
+    void Keyup(int keycode) override
+    {
+        std::cout << "Keyup! (" << keycode << ")" << std::endl;
     }
 
     void Dispose() override

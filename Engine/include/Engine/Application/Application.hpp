@@ -21,6 +21,8 @@ namespace engine
         void Run();
     private:
         Window* mWnd;
+
+        friend class EventSystem;
     };
 }
 
