@@ -18,7 +18,10 @@ using namespace engine;
 class Sokoban : public Application, EventSystem
 {
 public:
-    Sokoban(const AppConfig& cfg) : Application(cfg) { }
+    Sokoban(const AppConfig& cfg) : Application(cfg) 
+    {
+        mViewport = new FillViewport(cfg.Width, cfg.Height);
+    }
 
     void Start() override
     {
@@ -27,10 +30,10 @@ public:
         StaticRenderer2D::BeginScene();
 
         int offset = 0;
-        float size = 0.01f;
-        for (float i = -1.0f; i <= 1.0f; i += size)
+        float size = 0.05f;
+        for (float i = -1.0f; i <= 1.0f + size; i += size)
         {
-            for (float j = -1.0f; j <= 1.0f; j += size)
+            for (float j = -1.0f; j <= 1.0f + size; j += size)
             {
                 glm::vec4 color = offset % 2 ? glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f } 
                     : glm::vec4{ 1.0f, 1.0f, 0.0f, 1.0f };
@@ -58,7 +61,7 @@ public:
 
     void Resize(int width, int height) override
     {
-        std::cout << "Window Resized! (" << width << ", " << height << ")" << std::endl;
+        mViewport->Update(width, height);
     }
 
     void Keydown(int keycode) override
@@ -76,6 +79,7 @@ public:
         
     }
 private:
+    Viewport* mViewport;
     float rot = 0;
 };
 
