@@ -1,5 +1,6 @@
 #include "Engine/Application/Application.hpp"
 #include "Engine/Application/Window.hpp"
+#include "Engine/Application/Input.hpp"
 #include "Engine/Exception.hpp"
 #include "Engine/Graphics/Renderer2D.hpp"
 
@@ -11,6 +12,7 @@ namespace engine
     Application::Application(const AppConfig& cfg)
     {
         mWnd = new Window(cfg);
+        Input::mWindow = mWnd->GlfwWindow();
     }
 
     Application::~Application()

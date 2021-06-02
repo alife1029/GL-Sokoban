@@ -3,6 +3,7 @@
 
 #include <Engine/Application/Application.hpp>
 #include <Engine/Application/EventSystem.hpp>
+#include <Engine/Application/Input.hpp>
 
 #include <Engine/Graphics/Texture2D.hpp>
 #include <Engine/Graphics/Renderer2D.hpp>
