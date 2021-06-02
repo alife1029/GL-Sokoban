@@ -8,6 +8,7 @@
 #endif
 
 #include <Engine.hpp>
+#include <Engine/Graphics/Camera.hpp>
 
 #include <iostream>
 #include <fstream>
@@ -21,6 +22,7 @@ public:
     Sokoban(const AppConfig& cfg) : Application(cfg) 
     {
         mViewport = new FillViewport(cfg.Width, cfg.Height);
+        mCamera = new OrthographicCamera(mViewport, 5.0f);
     }
 
     void Start() override
@@ -30,10 +32,10 @@ public:
         StaticRenderer2D::BeginScene();
 
         int offset = 0;
-        float size = 0.05f;
-        for (float i = -1.0f; i <= 1.0f + size; i += size)
+        float size = 0.5f;
+        for (float i = -6.0f; i <= 6.0f; i += size)
         {
-            for (float j = -1.0f; j <= 1.0f + size; j += size)
+            for (float j = -6.0f; j <= 6.0f; j += size)
             {
                 glm::vec4 color = offset % 2 ? glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f } 
                     : glm::vec4{ 1.0f, 1.0f, 0.0f, 1.0f };
@@ -48,15 +50,31 @@ public:
 
     void Update() override
     {
-        StaticRenderer2D::RenderScene(glm::mat4(1.0f));
+        if (Input::GetKey(ENGINE_KEY_Q))
+            mCamera->Rotate(-0.01f);
+        if (Input::GetKey(ENGINE_KEY_E))
+            mCamera->Rotate(0.01f);
 
-        Renderer2D::Begin(glm::mat4(1.0f));
+        if (Input::GetKey(ENGINE_KEY_W))
+            mCamera->Translate(0.0f, 0.01f);
+        if (Input::GetKey(ENGINE_KEY_S))
+            mCamera->Translate(0.0f, -0.01f);
+        if (Input::GetKey(ENGINE_KEY_A))
+            mCamera->Translate(-0.01f, 0.0f);
+        if (Input::GetKey(ENGINE_KEY_D))
+            mCamera->Translate(0.01f, 0.0f);
+
+        mCamera->Update();
+
+        StaticRenderer2D::RenderScene(mCamera->Combined());
+
+        Renderer2D::Begin(mCamera->Combined());
         Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, rot++, { 0.0f, 0.0f, 1.0f, 1.0f });
         Renderer2D::End();
         Renderer2D::Flush();
 
-        RenderStat stats = RenderStats();
-        std::cout << "Batches: " << stats.Batches() << " (Static: " << stats.StaticBatches << " Dynamic: " << stats.DynamicBatches << ")" << std::endl;
+        RenderStat& stats = RenderStats();
+        //std::cout << "Batches: " << stats.Batches() << " (Static: " << stats.StaticBatches << " Dynamic: " << stats.DynamicBatches << ")" << std::endl;
     }
 
     void Resize(int width, int height) override
@@ -80,6 +98,7 @@ public:
     }
 private:
     Viewport* mViewport;
+    OrthographicCamera* mCamera;
     float rot = 0;
 };
 
