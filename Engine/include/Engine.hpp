@@ -8,6 +8,7 @@
 #include <Engine/Graphics/Texture2D.hpp>
 #include <Engine/Graphics/Renderer2D.hpp>
 #include <Engine/Graphics/Viewport.hpp>
+#include <Engine/Graphics/Camera.hpp>
 
 #include <Engine/Exception.hpp>
 #include <Engine/File.hpp>

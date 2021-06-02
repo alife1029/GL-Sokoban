@@ -8,7 +8,6 @@
 #endif
 
 #include <Engine.hpp>
-#include <Engine/Graphics/Camera.hpp>
 
 #include <iostream>
 #include <fstream>
