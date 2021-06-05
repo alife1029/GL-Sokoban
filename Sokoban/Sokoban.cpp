@@ -22,6 +22,7 @@ public:
     {
         mViewport = new FillViewport(cfg.Width, cfg.Height);
         mCamera = new OrthographicCamera(mViewport, 5.0f);
+        mActiveScene = new Scene();
     }
 
     void Start() override
@@ -45,6 +46,15 @@ public:
         }
 
         StaticRenderer2D::EndScene();
+
+        Entity quad0 = mActiveScene->CreateEntity("Quad");
+        quad0.GetTransformComponent().Rotation = -60.0f;
+        quad0.AddComponent(glm::vec4{0.0f, 1.0f, 0.0f, 1.0f});
+
+        Entity quad1 = mActiveScene->CreateEntity("Quad");
+        quad1.GetTransformComponent().Position = { 1.7f, -1.5f };
+        quad1.GetTransformComponent().Rotation = 37.5f;
+        quad1.AddComponent(glm::vec4{0.0f, 0.0f, 1.0f, 1.0f});
     }
 
     void Update() override
@@ -68,9 +78,10 @@ public:
         StaticRenderer2D::RenderScene(mCamera->Combined());
 
         Renderer2D::Begin(mCamera->Combined());
-        Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, rot++, { 0.0f, 0.0f, 1.0f, 1.0f });
+        mActiveScene->OnUpdate();
         Renderer2D::End();
         Renderer2D::Flush();
+        
 
         RenderStat& stats = RenderStats();
         //std::cout << "Batches: " << stats.Batches() << " (Static: " << stats.StaticBatches << " Dynamic: " << stats.DynamicBatches << ")" << std::endl;
@@ -93,12 +104,14 @@ public:
 
     void Dispose() override
     {
-        
+        delete mViewport;
+        delete mCamera;
+        delete mActiveScene;
     }
 private:
     Viewport* mViewport;
     OrthographicCamera* mCamera;
-    float rot = 0;
+    Scene* mActiveScene;
 };
 
 int main(int argc, char** argv)

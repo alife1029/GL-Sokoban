@@ -2,6 +2,7 @@ file(GLOB PROJECT_SOURCES
     ${PROJECT_DIR}/src/*.cpp
     ${PROJECT_DIR}/src/Application/*.cpp
     ${PROJECT_DIR}/src/Graphics/*.cpp
+    ${PROJECT_DIR}/src/Scene/*.cpp
     )
 
 include_directories(${PROJECT_DIR}/include)

@@ -13,6 +13,9 @@ include_directories(${DEPENDENCIES_DIR}/stb)
 # GLM
 include_directories(${DEPENDENCIES_DIR}/glm)
 
+# ENTT
+include_directories(${DEPENDENCIES_DIR}/entt/include)
+
 set(ALL_LIB_FILES 
     ${GLFW_LIB_FILES}
     )

@@ -192,7 +192,7 @@ namespace engine
     }
     void Renderer2D::DrawQuad(const glm::mat4& modelMat, const glm::vec4& color)
     {
-        DrawQuad(Texture2D::WhiteTexture(), modelMat, { 1.0f, 1.0f, 1.0f, 1.0f });
+        DrawQuad(Texture2D::WhiteTexture(), modelMat, color);
     }
     void Renderer2D::DrawQuad(const Texture2D& tex, const glm::mat4& modelMat, const glm::vec4& color)
     {

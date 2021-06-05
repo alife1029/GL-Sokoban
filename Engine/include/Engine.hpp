@@ -10,6 +10,10 @@
 #include <Engine/Graphics/Viewport.hpp>
 #include <Engine/Graphics/Camera.hpp>
 
+#include <Engine/Scene/Scene.hpp>
+#include <Engine/Scene/Entity.hpp>
+#include <Engine/Scene/Components.hpp>
+
 #include <Engine/Exception.hpp>
 #include <Engine/File.hpp>
 
